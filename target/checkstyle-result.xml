@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.19">
+<file name="F:\deli_coding\userstructure\src\main\java\com\delicloud\commonEnum\Grade.java">
+<error line="1" column="9" severity="error" message="名称 &apos;com.delicloud.commonEnum&apos; 必须匹配表达式： &apos;^[a-z]+(\.[a-z][a-z0-9]*)*$&apos; 。" source="com.puppycrawl.tools.checkstyle.checks.naming.PackageNameCheck"/>
+<error line="8" column="5" severity="error" message="缺少 Javadoc 。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocVariableCheck"/>
+<error line="9" column="5" severity="error" message="缺少 Javadoc 。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocVariableCheck"/>
+<error line="10" column="5" severity="error" message="缺少 Javadoc 。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocVariableCheck"/>
+<error line="11" column="5" severity="error" message="缺少 Javadoc 。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocVariableCheck"/>
+<error line="12" column="5" severity="error" message="缺少 Javadoc 。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocVariableCheck"/>
+<error line="13" column="5" severity="error" message="缺少 Javadoc 。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocVariableCheck"/>
+</file>
+<file name="F:\deli_coding\userstructure\src\main\java\com\delicloud\commonEnum\Job.java">
+<error line="1" column="9" severity="error" message="名称 &apos;com.delicloud.commonEnum&apos; 必须匹配表达式： &apos;^[a-z]+(\.[a-z][a-z0-9]*)*$&apos; 。" source="com.puppycrawl.tools.checkstyle.checks.naming.PackageNameCheck"/>
+<error line="9" column="5" severity="error" message="缺少 Javadoc 。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocVariableCheck"/>
+<error line="11" column="5" severity="error" message="缺少 Javadoc 。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocVariableCheck"/>
+</file>
+<file name="F:\deli_coding\userstructure\src\main\java\com\delicloud\commonEnum\NameType.java">
+<error line="1" column="9" severity="error" message="名称 &apos;com.delicloud.commonEnum&apos; 必须匹配表达式： &apos;^[a-z]+(\.[a-z][a-z0-9]*)*$&apos; 。" source="com.puppycrawl.tools.checkstyle.checks.naming.PackageNameCheck"/>
+<error line="8" column="5" severity="error" message="缺少 Javadoc 。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocVariableCheck"/>
+<error line="9" column="5" severity="error" message="缺少 Javadoc 。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocVariableCheck"/>
+<error line="10" column="5" severity="error" message="缺少 Javadoc 。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocVariableCheck"/>
+</file>
+<file name="F:\deli_coding\userstructure\src\main\java\com\delicloud\entity\Company.java">
+<error line="22" column="10" severity="error" message="变量 &apos;parentCompanyId&apos; 应定义为 private 的，并配置访问方法。" source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+<error line="24" column="12" severity="error" message="变量 &apos;name&apos; 应定义为 private 的，并配置访问方法。" source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+</file>
+<file name="F:\deli_coding\userstructure\src\main\java\com\delicloud\entity\Department.java">
+<error line="8" column="8" severity="error" message="无用导入 - java.util.List 。" source="com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck"/>
+<error line="19" column="10" severity="error" message="变量 &apos;companyId&apos; 应定义为 private 的，并配置访问方法。" source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+<error line="21" column="10" severity="error" message="变量 &apos;parentDepartmentId&apos; 应定义为 private 的，并配置访问方法。" source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+<error line="23" column="12" severity="error" message="变量 &apos;name&apos; 应定义为 private 的，并配置访问方法。" source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+</file>
+<file name="F:\deli_coding\userstructure\src\main\java\com\delicloud\entity\DepartmentUser.java">
+<error line="16" column="10" severity="error" message="变量 &apos;companyId&apos; 应定义为 private 的，并配置访问方法。" source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+<error line="18" column="10" severity="error" message="变量 &apos;departmentId&apos; 应定义为 private 的，并配置访问方法。" source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+<error line="20" column="10" severity="error" message="变量 &apos;userId&apos; 应定义为 private 的，并配置访问方法。" source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+</file>
+<file name="F:\deli_coding\userstructure\src\main\java\com\delicloud\entity\User.java">
+<error line="20" column="12" severity="error" message="变量 &apos;jobNumber&apos; 应定义为 private 的，并配置访问方法。" source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+<error line="22" column="12" severity="error" message="变量 &apos;name&apos; 应定义为 private 的，并配置访问方法。" source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+<error line="24" column="9" severity="error" message="变量 &apos;sex&apos; 应定义为 private 的，并配置访问方法。" source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+<error line="26" column="11" severity="error" message="变量 &apos;grade&apos; 应定义为 private 的，并配置访问方法。" source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+<error line="28" column="9" severity="error" message="变量 &apos;job&apos; 应定义为 private 的，并配置访问方法。" source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+</file>
+<file name="F:\deli_coding\userstructure\src\main\java\com\delicloud\service\CompanyService.java">
+<error line="3" column="8" severity="error" message="无用导入 - com.delicloud.entity.Company 。" source="com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck"/>
+<error line="14" column="5" severity="error" message="缺少 Javadoc 。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocMethodCheck"/>
+<error line="16" column="5" severity="error" message="缺少 Javadoc 。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocMethodCheck"/>
+<error line="18" column="5" severity="error" message="缺少 Javadoc 。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocMethodCheck"/>
+<error line="20" column="5" severity="error" message="缺少 Javadoc 。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocMethodCheck"/>
+</file>
+<file name="F:\deli_coding\userstructure\src\main\java\com\delicloud\UserStructure.java">
+<error line="13" column="5" severity="error" message="缺少 Javadoc 。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocMethodCheck"/>
+</file>
+<file name="F:\deli_coding\userstructure\src\main\java\com\delicloud\util\NameGetter.java">
+<error line="3" column="8" severity="error" message="无用导入 - com.delicloud.commonEnum.NameType 。" source="com.puppycrawl.tools.checkstyle.checks.imports.UnusedImportsCheck"/>
+<error line="14" column="44" severity="error" message="名称 &apos;nameMap&apos; 必须匹配表达式： &apos;(^[A-Z0-9_]{0,48}$)&apos; 。" source="com.puppycrawl.tools.checkstyle.checks.naming.ConstantNameCheck"/>
+<error line="16" column="5" severity="error" message="缺少 Javadoc 。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocMethodCheck"/>
+</file>
+<file name="F:\deli_coding\userstructure\src\main\java\com\delicloud\vo\CompanyTreeVo.java">
+<error line="13" column="10" severity="error" message="变量 &apos;id&apos; 应定义为 private 的，并配置访问方法。" source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+<error line="14" column="12" severity="error" message="变量 &apos;name&apos; 应定义为 private 的，并配置访问方法。" source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+<error line="15" column="25" severity="error" message="变量 &apos;childCompany&apos; 应定义为 private 的，并配置访问方法。" source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+</file>
+<file name="F:\deli_coding\userstructure\src\main\java\com\delicloud\vo\CompanyVo.java">
+<error line="13" column="10" severity="error" message="变量 &apos;id&apos; 应定义为 private 的，并配置访问方法。" source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+<error line="15" column="12" severity="error" message="变量 &apos;name&apos; 应定义为 private 的，并配置访问方法。" source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+<error line="17" column="10" severity="error" message="变量 &apos;parentCompanyId&apos; 应定义为 private 的，并配置访问方法。" source="com.puppycrawl.tools.checkstyle.checks.design.VisibilityModifierCheck"/>
+</file>
+<file name="F:\deli_coding\userstructure\src\main\java\com\delicloud\web\CompanyController.java">
+<error line="22" column="5" severity="error" message="缺少 Javadoc 。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocMethodCheck"/>
+<error line="28" column="5" severity="error" message="缺少 Javadoc 。" source="com.puppycrawl.tools.checkstyle.checks.javadoc.JavadocMethodCheck"/>
+</file>
+</checkstyle>

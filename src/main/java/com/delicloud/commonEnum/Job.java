@@ -6,8 +6,8 @@ package com.delicloud.commonEnum;
  */
 public enum Job {
 
-    employee,
+    EMPLOYEE,
 
-    leader
+    LEADER
 
 }

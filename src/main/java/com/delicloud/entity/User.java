@@ -17,10 +17,6 @@ import javax.persistence.Table;
 @Table(name = "t_user")
 public class User extends SoftDeletableEntity {
 
-    long companyId;
-
-    long departmentId;
-
     String jobNumber;
 
     String name;
