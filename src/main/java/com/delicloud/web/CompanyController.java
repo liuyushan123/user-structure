@@ -2,6 +2,7 @@ package com.delicloud.web;
 
 import com.delicloud.platform.v2.common.lang.bo.RespBase;
 import com.delicloud.service.CompanyService;
+import com.delicloud.vo.CompanyTreeVo;
 import com.delicloud.vo.CompanyVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +21,8 @@ public class CompanyController {
     private CompanyService companyService;
 
     @GetMapping("query")
-    public RespBase<List<CompanyVo>> queryAll() {
-        List<CompanyVo> companyVos = companyService.query();
+    public RespBase<CompanyTreeVo> queryAll() {
+        CompanyTreeVo companyVos = companyService.query();
         return new RespBase<>(companyVos);
     }
 

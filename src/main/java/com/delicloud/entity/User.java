@@ -7,6 +7,7 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.criteria.CriteriaBuilder;
 
 /**
  * @author liuyushan
@@ -21,7 +22,7 @@ public class User extends SoftDeletableEntity {
 
     String name;
 
-    int sex;
+    Integer sex;
 
     Grade grade;
 

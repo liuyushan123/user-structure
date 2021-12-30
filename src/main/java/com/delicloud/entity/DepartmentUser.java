@@ -13,11 +13,11 @@ import javax.persistence.Table;
 @Table(name = "t_department_user")
 public class DepartmentUser extends SoftDeletableEntity {
 
-    long companyId;
+    Long companyId;
 
-    long departmentId;
+    Long departmentId;
 
-    long userId;
+    Long userId;
 
 
 }

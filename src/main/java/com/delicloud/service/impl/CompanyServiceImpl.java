@@ -26,9 +26,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public List<CompanyVo> createCompanyList(Long companyId, Integer count) {
-        Optional<Company> optionalCompany = companyRepository.findById(companyId);
-        Assert.isTrue(optionalCompany.isPresent(), "公司不存在");
-        Company company = optionalCompany.get();
+        Company company = companyRepository.findById(companyId).orElseThrow(()->new RuntimeException("公司不存在"));
         List<Company> companies = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             companies.add(new Company(company.getId(), "公司" + (i + 1)));
