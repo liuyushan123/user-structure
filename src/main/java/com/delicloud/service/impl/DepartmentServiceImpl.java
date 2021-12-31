@@ -38,5 +38,6 @@ public class DepartmentServiceImpl implements DepartmentService {
         List<Department> departments = departmentRepository.findAll();
         List<Long> collect = departments.stream().map(Department::getCompanyId).distinct().collect(Collectors.toList());
         List<Company> companies = companyRepository.findAllById(collect);
+
     }
 }
