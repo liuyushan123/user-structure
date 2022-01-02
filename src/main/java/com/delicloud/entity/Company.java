@@ -4,10 +4,10 @@ import com.delicloud.platform.v2.common.data.entity.SoftDeletableEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.List;
 
 /**
  * @author liuyushan
@@ -18,10 +18,12 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Where(clause = SoftDeletableEntity.SQL_CLAUSE_SOFT_DELETE)
 public class Company extends SoftDeletableEntity {
 
-    Long parentCompanyId;
+    private Long parentId;
 
-    String name;
+    private String name;
+
 
 }

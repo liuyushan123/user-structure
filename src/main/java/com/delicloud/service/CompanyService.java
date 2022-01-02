@@ -1,6 +1,6 @@
 package com.delicloud.service;
 
-import com.delicloud.entity.Company;
+import com.delicloud.vo.CompanyDetailVo;
 import com.delicloud.vo.CompanyTreeVo;
 import com.delicloud.vo.CompanyVo;
 
@@ -19,5 +19,7 @@ public interface CompanyService {
     boolean deleteComany();
 
     CompanyTreeVo query();
+
+    CompanyDetailVo queryCompany(Long companyId);
 
 }

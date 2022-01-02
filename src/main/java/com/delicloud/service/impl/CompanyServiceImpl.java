@@ -1,19 +1,22 @@
 package com.delicloud.service.impl;
 
 import com.delicloud.dao.CompanyRepository;
+import com.delicloud.dao.DepartmentRepository;
+import com.delicloud.dao.DepartmentUserRepository;
 import com.delicloud.entity.Company;
+import com.delicloud.entity.Department;
 import com.delicloud.platform.v2.common.lang.util.PropertyCopyUtil;
 import com.delicloud.service.CompanyService;
+import com.delicloud.util.TreeUtils;
+import com.delicloud.vo.CompanyDetailVo;
 import com.delicloud.vo.CompanyTreeVo;
 import com.delicloud.vo.CompanyVo;
+import com.delicloud.vo.DepartmentTreeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * @author liuyushan
@@ -23,10 +26,14 @@ import java.util.stream.Collectors;
 public class CompanyServiceImpl implements CompanyService {
     @Autowired
     private CompanyRepository companyRepository;
+    @Autowired
+    private DepartmentRepository departmentRepository;
+    @Autowired
+    private DepartmentUserRepository departmentUserRepository;
 
     @Override
     public List<CompanyVo> createCompanyList(Long companyId, Integer count) {
-        Company company = companyRepository.findById(companyId).orElseThrow(()->new RuntimeException("公司不存在"));
+        Company company = companyRepository.findById(companyId).orElseThrow(() -> new RuntimeException("公司不存在"));
         List<Company> companies = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             companies.add(new Company(company.getId(), "公司" + (i + 1)));
@@ -49,22 +56,27 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public CompanyTreeVo query() {
         List<Company> all = companyRepository.findAll();
-        Company company = companyRepository.findById(0L).get();
-        CompanyTreeVo companyTreeVo = PropertyCopyUtil.copyProperties(company, CompanyTreeVo.class);
-        tree(all, companyTreeVo);
+        List<CompanyTreeVo> companyTreeVos = PropertyCopyUtil.copyCollectionProperties(all, CompanyTreeVo.class);
+        CompanyTreeVo companyTreeVo = TreeUtils.generateTrees(companyTreeVos).get(0);
         return companyTreeVo;
     }
 
-    private void tree(List<Company> companies, CompanyTreeVo companyTreeVo) {
-        List<Company> collect = companies.stream().filter(t -> t.getId().equals(companyTreeVo.getId())).collect(Collectors.toList());
-        if (collect.isEmpty()) {
-            return;
+    @Override
+    public CompanyDetailVo queryCompany(Long companyId) {
+        Company company = companyRepository.findById(companyId).orElseThrow(() -> new RuntimeException("未找到公司"));
+        CompanyDetailVo companyDetailVo = PropertyCopyUtil.copyProperties(company, CompanyDetailVo.class);
+        List<Department> departments = departmentRepository.findAllByCompanyId(companyDetailVo.getId());
+        List<DepartmentTreeVo> departmentTreeVos = new ArrayList<>();
+        for (Department department : departments) {
+            DepartmentTreeVo departmentTreeVo = PropertyCopyUtil.copyProperties(department, DepartmentTreeVo.class);
+            Integer count = departmentUserRepository.countByDepartmentId(departmentTreeVo.getId());
+            departmentTreeVo.setEmployeeCount(count);
+            departmentTreeVos.add(departmentTreeVo);
         }
-        List<CompanyTreeVo> companyTreeVos = PropertyCopyUtil.copyCollectionProperties(collect, CompanyTreeVo.class);
-        companyTreeVo.setChildCompany(companyTreeVos);
-        for (CompanyTreeVo company:companyTreeVos) {
-            tree(companies, company);
-        }
+        List<DepartmentTreeVo> departmentTree = TreeUtils.generateTrees(departmentTreeVos);
+        companyDetailVo.setDepartmentTreeVos(departmentTree);
+        return companyDetailVo;
     }
+
 
 }

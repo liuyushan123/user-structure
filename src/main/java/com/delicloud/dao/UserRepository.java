@@ -2,6 +2,7 @@ package com.delicloud.dao;
 
 import com.delicloud.entity.User;
 import com.delicloud.platform.v2.common.data.repository.RepositoryBase;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author liuyushan

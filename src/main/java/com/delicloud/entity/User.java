@@ -3,11 +3,13 @@ package com.delicloud.entity;
 import com.delicloud.commonEnum.Grade;
 import com.delicloud.commonEnum.Job;
 import com.delicloud.platform.v2.common.data.entity.SoftDeletableEntity;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.criteria.CriteriaBuilder;
 
 /**
  * @author liuyushan
@@ -16,6 +18,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 @Entity
 @Data
 @Table(name = "t_user")
+@AllArgsConstructor
+@NoArgsConstructor
+@Where(clause = SoftDeletableEntity.SQL_CLAUSE_SOFT_DELETE)
 public class User extends SoftDeletableEntity {
 
     String jobNumber;

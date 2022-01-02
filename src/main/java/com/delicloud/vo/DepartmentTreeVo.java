@@ -1,21 +1,19 @@
 package com.delicloud.vo;
 
 import com.delicloud.platform.v2.common.lang.bo.JsonBase;
-import lombok.Data;
 
 import java.util.List;
 
 /**
- * @author liuyushan
- * Date: 2021/12/29
+ * @author lys
+ * 2022/1/2
  */
-public class CompanyTreeVo extends JsonBase implements TreeNode<Long> {
-
+public class DepartmentTreeVo extends JsonBase implements TreeNode<Long> {
     Long id;
     Long parentId;
     String name;
+    Integer employeeCount;
     List<CompanyTreeVo> children;
-
     @Override
     public Long getId() {
         return this.id;
@@ -28,7 +26,7 @@ public class CompanyTreeVo extends JsonBase implements TreeNode<Long> {
 
     @Override
     public boolean isRoot() {
-        return id == 0;
+        return parentId == 0;
     }
 
     public void setId(Long id) {
@@ -41,6 +39,10 @@ public class CompanyTreeVo extends JsonBase implements TreeNode<Long> {
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    public void setEmployeeCount(Integer employeeCount) {
+        this.employeeCount = employeeCount;
     }
 
     @Override
