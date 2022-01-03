@@ -1,6 +1,7 @@
 package com.delicloud.vo;
 
 import com.delicloud.platform.v2.common.lang.bo.JsonBase;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ public class DepartmentTreeVo extends JsonBase implements TreeNode<Long> {
     Long id;
     Long parentId;
     String name;
+    @JsonIgnore
+    Boolean root;
     Integer employeeCount;
     List<CompanyTreeVo> children;
     @Override

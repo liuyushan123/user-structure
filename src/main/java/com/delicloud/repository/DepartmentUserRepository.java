@@ -1,4 +1,4 @@
-package com.delicloud.dao;
+package com.delicloud.repository;
 
 import com.delicloud.entity.DepartmentUser;
 import com.delicloud.platform.v2.common.data.repository.RepositoryBase;

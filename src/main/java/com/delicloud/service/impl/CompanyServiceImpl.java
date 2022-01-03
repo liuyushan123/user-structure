@@ -1,8 +1,8 @@
 package com.delicloud.service.impl;
 
-import com.delicloud.dao.CompanyRepository;
-import com.delicloud.dao.DepartmentRepository;
-import com.delicloud.dao.DepartmentUserRepository;
+import com.delicloud.repository.CompanyRepository;
+import com.delicloud.repository.DepartmentRepository;
+import com.delicloud.repository.DepartmentUserRepository;
 import com.delicloud.entity.Company;
 import com.delicloud.entity.Department;
 import com.delicloud.platform.v2.common.lang.util.PropertyCopyUtil;

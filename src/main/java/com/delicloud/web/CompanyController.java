@@ -23,6 +23,7 @@ public class CompanyController {
     @GetMapping("query")
     public RespBase<CompanyTreeVo> queryAll() {
         CompanyTreeVo companyVos = companyService.query();
+        System.out.println(companyVos.toString());
         return new RespBase<>(companyVos);
     }
 

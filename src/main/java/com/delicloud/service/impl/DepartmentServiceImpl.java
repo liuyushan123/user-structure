@@ -1,11 +1,12 @@
 package com.delicloud.service.impl;
 
-import com.delicloud.dao.CompanyRepository;
-import com.delicloud.dao.DepartmentRepository;
+import com.delicloud.repository.CompanyRepository;
+import com.delicloud.repository.DepartmentRepository;
 import com.delicloud.entity.Company;
 import com.delicloud.entity.Department;
 import com.delicloud.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
  * @author liuyushan
  * Date: 2021/12/30
  */
+@Service
 public class DepartmentServiceImpl implements DepartmentService {
 
     @Autowired

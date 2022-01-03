@@ -1,6 +1,6 @@
-package com.delicloud.dao;
+package com.delicloud.repository;
 
-import com.delicloud.entity.Company;
+import com.delicloud.entity.User;
 import com.delicloud.platform.v2.common.data.repository.RepositoryBase;
 import org.springframework.stereotype.Repository;
 
@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
  * @author liuyushan
  * Date: 2021/12/23
  */
-public interface CompanyRepository extends RepositoryBase<Company, Long> {
+public interface UserRepository extends RepositoryBase<User, Long> {
 }
