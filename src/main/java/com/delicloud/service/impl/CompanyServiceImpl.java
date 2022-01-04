@@ -1,11 +1,11 @@
 package com.delicloud.service.impl;
 
-import com.delicloud.repository.CompanyRepository;
-import com.delicloud.repository.DepartmentRepository;
-import com.delicloud.repository.DepartmentUserRepository;
 import com.delicloud.entity.Company;
 import com.delicloud.entity.Department;
 import com.delicloud.platform.v2.common.lang.util.PropertyCopyUtil;
+import com.delicloud.repository.CompanyRepository;
+import com.delicloud.repository.DepartmentRepository;
+import com.delicloud.repository.DepartmentUserRepository;
 import com.delicloud.service.CompanyService;
 import com.delicloud.util.TreeUtils;
 import com.delicloud.vo.CompanyDetailVo;
@@ -54,7 +54,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public CompanyTreeVo query() {
+    public CompanyTreeVo queryTree() {
         List<Company> all = companyRepository.findAll();
         List<CompanyTreeVo> companyTreeVos = PropertyCopyUtil.copyCollectionProperties(all, CompanyTreeVo.class);
         CompanyTreeVo companyTreeVo = TreeUtils.generateTrees(companyTreeVos).get(0);
@@ -62,7 +62,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public CompanyDetailVo queryCompany(Long companyId) {
+    public CompanyDetailVo queryDetailCompany(Long companyId) {
         Company company = companyRepository.findById(companyId).orElseThrow(() -> new RuntimeException("未找到公司"));
         CompanyDetailVo companyDetailVo = PropertyCopyUtil.copyProperties(company, CompanyDetailVo.class);
         List<Department> departments = departmentRepository.findAllByCompanyId(companyDetailVo.getId());
@@ -76,6 +76,12 @@ public class CompanyServiceImpl implements CompanyService {
         List<DepartmentTreeVo> departmentTree = TreeUtils.generateTrees(departmentTreeVos);
         companyDetailVo.setDepartmentTreeVos(departmentTree);
         return companyDetailVo;
+    }
+
+    @Override
+    public Company queryOne(Long companyId) {
+        Company company = companyRepository.findById(companyId).orElseThrow(() -> new RuntimeException("未找到公司"));
+        return company;
     }
 
 

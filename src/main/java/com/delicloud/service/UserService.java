@@ -13,4 +13,6 @@ public interface UserService {
     List<User> createUserList(Integer count);
 
     void query();
+
+    User queryOne(Long userId);
 }

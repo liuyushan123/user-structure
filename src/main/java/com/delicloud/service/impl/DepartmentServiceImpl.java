@@ -42,4 +42,10 @@ public class DepartmentServiceImpl implements DepartmentService {
         List<Company> companies = companyRepository.findAllById(collect);
 
     }
+
+    @Override
+    public Department queryOne(Long departmentId) {
+        Department department = departmentRepository.findById(departmentId).orElseThrow(() -> new RuntimeException("没有该部门"));
+        return department;
+    }
 }
