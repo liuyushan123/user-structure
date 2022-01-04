@@ -1,11 +1,13 @@
 package com.delicloud.service.impl;
 
+import com.delicloud.dto.req.CompanyReq;
 import com.delicloud.entity.Company;
 import com.delicloud.entity.Department;
+import com.delicloud.entity.DepartmentEmploy;
 import com.delicloud.platform.v2.common.lang.util.PropertyCopyUtil;
 import com.delicloud.repository.CompanyRepository;
+import com.delicloud.repository.DepartmentEmployRepository;
 import com.delicloud.repository.DepartmentRepository;
-import com.delicloud.repository.DepartmentUserRepository;
 import com.delicloud.service.CompanyService;
 import com.delicloud.util.TreeUtils;
 import com.delicloud.vo.CompanyDetailVo;
@@ -14,6 +16,7 @@ import com.delicloud.vo.CompanyVo;
 import com.delicloud.vo.DepartmentTreeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +32,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Autowired
     private DepartmentRepository departmentRepository;
     @Autowired
-    private DepartmentUserRepository departmentUserRepository;
+    private DepartmentEmployRepository departmentEmployRepository;
 
     @Override
     public List<CompanyVo> createCompanyList(Long companyId, Integer count) {
@@ -48,9 +51,16 @@ public class CompanyServiceImpl implements CompanyService {
         return null;
     }
 
+    @Transactional
     @Override
-    public boolean deleteComany() {
-        return false;
+    public void deleteCompany(Long companyId) {
+        Company company = companyRepository.findById(companyId).orElseThrow(() -> new RuntimeException("未找到公司"));
+        Long id = company.getId();
+        List<Department> departments = departmentRepository.findAllByCompanyId(id);
+        List<DepartmentEmploy> departmentEmploys = departmentEmployRepository.findAllByCompanyId(id);
+        departmentEmployRepository.deleteAll(departmentEmploys);
+        departmentRepository.deleteAll(departments);
+        companyRepository.delete(company);
     }
 
     @Override
@@ -69,7 +79,7 @@ public class CompanyServiceImpl implements CompanyService {
         List<DepartmentTreeVo> departmentTreeVos = new ArrayList<>();
         for (Department department : departments) {
             DepartmentTreeVo departmentTreeVo = PropertyCopyUtil.copyProperties(department, DepartmentTreeVo.class);
-            Integer count = departmentUserRepository.countByDepartmentId(departmentTreeVo.getId());
+            Integer count = departmentEmployRepository.countByDepartmentId(departmentTreeVo.getId());
             departmentTreeVo.setEmployeeCount(count);
             departmentTreeVos.add(departmentTreeVo);
         }
@@ -82,6 +92,15 @@ public class CompanyServiceImpl implements CompanyService {
     public Company queryOne(Long companyId) {
         Company company = companyRepository.findById(companyId).orElseThrow(() -> new RuntimeException("未找到公司"));
         return company;
+    }
+
+    @Override
+    public Company update(Long companyId, CompanyReq companyReq) {
+        Company company = companyRepository.findById(companyId).orElseThrow(() -> new RuntimeException("未找到公司"));
+        company.setName(companyReq.getName());
+        companyRepository.findById(companyReq.getParentId()).orElseThrow(() -> new RuntimeException("未找到公司"));
+        company.setParentId(companyReq.getParentId());
+        return companyRepository.save(company);
     }
 
 

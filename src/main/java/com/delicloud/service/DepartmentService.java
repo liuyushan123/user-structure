@@ -1,6 +1,8 @@
 package com.delicloud.service;
 
+import com.delicloud.dto.req.DepartmentReq;
 import com.delicloud.entity.Department;
+import com.delicloud.vo.DepartmentVo;
 
 /**
  * @author liuyushan
@@ -10,7 +12,11 @@ public interface DepartmentService {
 
     void createDepartmentList(Long companyId, Long parentDepartment, Integer count);
 
-    void query();
+    DepartmentVo query(Long departmentId);
 
     Department queryOne(Long departmentId);
+
+    void deleteDepartment(Long departmentId);
+
+    Department update(Long departmentId, DepartmentReq departmentReq);
 }

@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.delicloud</groupId>
-    <artifactId>user-structure</artifactId>
+    <artifactId>employ-structure</artifactId>
     <version>1.0-SNAPSHOT</version>
 
 

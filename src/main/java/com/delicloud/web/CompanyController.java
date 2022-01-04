@@ -1,5 +1,7 @@
 package com.delicloud.web;
 
+import com.delicloud.dto.req.CompanyReq;
+import com.delicloud.entity.Company;
 import com.delicloud.platform.v2.common.lang.bo.RespBase;
 import com.delicloud.service.CompanyService;
 import com.delicloud.vo.CompanyTreeVo;
@@ -14,13 +16,13 @@ import java.util.List;
  * Date: 2021/12/29
  */
 @RestController()
-@RequestMapping("/api/company")
+@RequestMapping("/company")
 public class CompanyController {
 
     @Autowired
     private CompanyService companyService;
 
-    @GetMapping("query")
+    @GetMapping("queryTree")
     public RespBase<CompanyTreeVo> queryAll() {
         CompanyTreeVo companyVos = companyService.queryTree();
         System.out.println(companyVos.toString());
@@ -34,5 +36,18 @@ public class CompanyController {
     ) {
         List<CompanyVo> companyList = companyService.createCompanyList(companyId, count);
         return new RespBase<>(companyList);
+    }
+
+    @DeleteMapping("{companyId}")
+    public RespBase<Void> delete(@PathVariable Long companyId) {
+        companyService.deleteCompany(companyId);
+        return RespBase.OK_RESP_BASE;
+    }
+
+    @PutMapping("{companyId}")
+    public RespBase<Void> update(@PathVariable Long companyId,
+                                 @RequestBody CompanyReq companyReq) {
+        companyService.update(companyId, companyReq);
+        return RespBase.OK_RESP_BASE;
     }
 }

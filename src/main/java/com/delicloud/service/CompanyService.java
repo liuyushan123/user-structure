@@ -1,5 +1,6 @@
 package com.delicloud.service;
 
+import com.delicloud.dto.req.CompanyReq;
 import com.delicloud.entity.Company;
 import com.delicloud.vo.CompanyDetailVo;
 import com.delicloud.vo.CompanyTreeVo;
@@ -23,7 +24,7 @@ public interface CompanyService {
 
     CompanyVo createCompany();
 
-    boolean deleteComany();
+    void deleteCompany(Long companyId);
 
     /**
      * 查询出公司树
@@ -34,5 +35,7 @@ public interface CompanyService {
     CompanyDetailVo queryDetailCompany(Long companyId);
 
     Company queryOne(Long companyId);
+
+    Company update(Long companyId, CompanyReq companyReq);
 
 }

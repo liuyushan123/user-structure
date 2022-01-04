@@ -2,10 +2,14 @@ package com.delicloud.web;
 
 import com.delicloud.entity.Company;
 import com.delicloud.entity.Department;
-import com.delicloud.entity.User;
+import com.delicloud.entity.DepartmentEmploy;
+import com.delicloud.entity.Employ;
+import com.delicloud.request.entity.Arch;
+import com.delicloud.request.entity.Node;
 import com.delicloud.service.CompanyService;
+import com.delicloud.service.DepartmentEmployService;
 import com.delicloud.service.DepartmentService;
-import com.delicloud.service.UserService;
+import com.delicloud.service.EmployService;
 import com.delicloud.util.SystemButtJoint;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +19,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,18 +37,20 @@ public class ArchController {
     @Autowired
     private DepartmentService departmentService;
     @Autowired
-    private UserService userService;
+    private EmployService employService;
+    @Autowired
+    private DepartmentEmployService departmentEmployService;
 
     @PutMapping("/arch/{archId}")
     public ResponseEntity<Object> putArch(@PathVariable Long archId,
                                           HttpServletRequest request,
-                                          @RequestHeader(value = "Api-Cmd") String apiCmd,
-                                          @RequestBody Map body) {
-        companyService.queryOne(archId);
+                                          @RequestHeader(value = "Api-Cmd") String apiCmd) {
+        Company company = companyService.queryOne(archId);
+        Arch arch = Arch.builder().name(company.getName()).build();
         String method = request.getMethod();
 
         String path = request.getRequestURI();
-        ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path, apiCmd, body);
+        ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path, apiCmd, arch);
         return response;
     }
 
@@ -75,14 +82,13 @@ public class ArchController {
     public ResponseEntity<Object> getNode(@PathVariable Long archId,
                                           @PathVariable Long nodeId,
                                           @RequestHeader(value = "Api-Cmd") String apiCmd,
-                                          HttpServletRequest request,
-                                          @RequestBody Map body) {
+                                          HttpServletRequest request) {
         Department department = departmentService.queryOne(nodeId);
         Assert.isTrue(department.getCompanyId().equals(archId), "部门不在公司下面");
+        Node node = Node.builder().parentNodeId(String.valueOf(department.getParentId())).name(department.getName()).build();
         String method = request.getMethod();
-
         String path = request.getRequestURI();
-        ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path, apiCmd, body);
+        ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path, apiCmd, node);
         return response;
     }
 
@@ -91,8 +97,6 @@ public class ArchController {
                                              @RequestHeader(value = "Api-Cmd") String apiCmd,
                                              HttpServletRequest request,
                                              @RequestBody Map body) {
-        Company company = companyService.queryOne(archId);
-        //TODO 删除公司未做
         String method = request.getMethod();
 
         String path = request.getRequestURI();
@@ -106,11 +110,7 @@ public class ArchController {
                                              @RequestHeader(value = "Api-Cmd") String apiCmd,
                                              HttpServletRequest request,
                                              @RequestBody Map body) {
-        Department department = departmentService.queryOne(nodeId);
-        Assert.isTrue(department.getCompanyId().equals(archId), "部门不在公司下面");
-        //TODO 删除部门未做
         String method = request.getMethod();
-
         String path = request.getRequestURI();
         ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path, apiCmd, body);
         return response;
@@ -121,9 +121,10 @@ public class ArchController {
                                           @RequestHeader(value = "Api-Cmd") String apiCmd,
                                           HttpServletRequest request,
                                           @RequestBody Map body) {
-        User user = userService.queryOne(no);
+        Employ employ = employService.queryOne(no);
+        List<DepartmentEmploy> departmentEmploys = departmentEmployService.queryUsers(employ.getId());
 //        Assert.isTrue(department.getCompanyId().equals(archId), "部门不在公司下面");
-        //TODO 添加人员未做
+        //TODO 添加人员未做,mainNode有几个
         String method = request.getMethod();
 
         String path = request.getRequestURI();
@@ -136,7 +137,7 @@ public class ArchController {
                                           @RequestHeader(value = "Api-Cmd") String apiCmd,
                                           HttpServletRequest request,
                                           @RequestBody Map body) {
-        userService.queryOne(no);
+        employService.queryOne(no);
         String method = request.getMethod();
 
         String path = request.getRequestURI();
@@ -147,11 +148,11 @@ public class ArchController {
     @GetMapping("/user/page")
     public ResponseEntity<Object> getUser(@RequestHeader(value = "Api-Cmd") String apiCmd,
                                           HttpServletRequest request,
-                                          @RequestBody Map body) {
+                                          @RequestBody(required = false) Object body) {
         String method = request.getMethod();
-        //TODO /user/page?page=1&size=10分页未作
+        String queryString = request.getQueryString();
         String path = request.getRequestURI();
-        ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path, apiCmd, body);
+        ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path + "?" + queryString, apiCmd, body);
         return response;
     }
 
@@ -160,9 +161,7 @@ public class ArchController {
                                              @RequestHeader(value = "Api-Cmd") String apiCmd,
                                              HttpServletRequest request,
                                              @RequestBody Map body) {
-        userService.queryOne(no);
         String method = request.getMethod();
-        //TODO 删除人员未作
         String path = request.getRequestURI();
         ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path, apiCmd, body);
         return response;
@@ -174,7 +173,7 @@ public class ArchController {
                                              @RequestHeader(value = "Api-Cmd") String apiCmd,
                                              HttpServletRequest request,
                                              @RequestBody Map body) {
-        userService.queryOne(no);
+        employService.queryOne(no);
         String method = request.getMethod();
         String path = request.getRequestURI();
         ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path, apiCmd, body);
@@ -186,9 +185,9 @@ public class ArchController {
                                              HttpServletRequest request,
                                              @RequestBody Map body) {
         String method = request.getMethod();
-        //TODO 未作/ass/record?next_id=0&page_size=50&real_data_only=true
+        String queryString = request.getQueryString();
         String path = request.getRequestURI();
-        ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path, apiCmd, body);
+        ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path + "?" + queryString, apiCmd, body);
         return response;
     }
 
@@ -197,9 +196,9 @@ public class ArchController {
                                             HttpServletRequest request,
                                             @RequestBody Map body) {
         String method = request.getMethod();
-        //TODO 未作/ass/record?next_id=0&page_size=50&real_data_only=true
+        String queryString = request.getQueryString();
         String path = request.getRequestURI();
-        ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path, apiCmd, body);
+        ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path + "?" + queryString, apiCmd, body);
         return response;
     }
 }

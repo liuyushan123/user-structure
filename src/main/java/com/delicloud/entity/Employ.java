@@ -1,5 +1,7 @@
 package com.delicloud.entity;
 
+import com.delicloud.commonEnum.Grade;
+import com.delicloud.commonEnum.Job;
 import com.delicloud.platform.v2.common.data.entity.SoftDeletableEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,21 +13,28 @@ import javax.persistence.Table;
 
 /**
  * @author liuyushan
- * Date: 2021/12/29
+ * Date: 2021/12/22
  */
 @Entity
-@Table(name = "t_department_user")
 @Data
-@Where(clause = SoftDeletableEntity.SQL_CLAUSE_SOFT_DELETE)
+@Table(name = "t_user")
 @AllArgsConstructor
 @NoArgsConstructor
-public class DepartmentUser extends SoftDeletableEntity {
+@Where(clause = SoftDeletableEntity.SQL_CLAUSE_SOFT_DELETE)
+public class Employ extends SoftDeletableEntity {
 
-    Long companyId;
+    String jobNumber;
 
-    Long departmentId;
+    String name;
 
-    Long userId;
+    Integer sex;
+
+    Grade grade;
+
+    Job job;
+
+
 
 
 }
+
