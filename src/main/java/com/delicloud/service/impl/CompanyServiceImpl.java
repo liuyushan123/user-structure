@@ -67,6 +67,11 @@ public class CompanyServiceImpl implements CompanyService {
     public CompanyTreeVo queryTree() {
         List<Company> all = companyRepository.findAll();
         List<CompanyTreeVo> companyTreeVos = PropertyCopyUtil.copyCollectionProperties(all, CompanyTreeVo.class);
+        for (CompanyTreeVo companyTreeVo : companyTreeVos) {
+            List<Department> departments = departmentRepository.findAllByCompanyId(companyTreeVo.getId());
+            List<DepartmentTreeVo> departmentTreeVos = PropertyCopyUtil.copyCollectionProperties(departments, DepartmentTreeVo.class);
+            companyTreeVo.setDepartmentTreeVos(TreeUtils.generateTrees(departmentTreeVos));
+        }
         CompanyTreeVo companyTreeVo = TreeUtils.generateTrees(companyTreeVos).get(0);
         return companyTreeVo;
     }

@@ -1,12 +1,15 @@
 package com.delicloud.web;
 
 import com.delicloud.dto.req.DepartmentReq;
+import com.delicloud.entity.Department;
 import com.delicloud.platform.v2.common.lang.bo.RespBase;
 import com.delicloud.service.CompanyService;
 import com.delicloud.service.DepartmentService;
 import com.delicloud.vo.DepartmentVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author lys
@@ -28,13 +31,13 @@ public class DepartmentController {
     }
 
     @PostMapping("create/{companyId}/{departmentId}/{count}")
-    public RespBase<Void> create(
+    public RespBase<List<DepartmentVo>> create(
             @PathVariable("companyId") Long companyId,
             @PathVariable("count") Integer count,
             @PathVariable("departmentId") Long departmentId
     ) {
-        departmentService.createDepartmentList(companyId, departmentId, count);
-        return RespBase.OK_RESP_BASE;
+        List<DepartmentVo> departmentList = departmentService.createDepartmentList(companyId, departmentId, count);
+        return new RespBase<>(departmentList);
     }
 
     @DeleteMapping("{departmentId}")

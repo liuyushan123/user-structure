@@ -18,9 +18,9 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class SystemButtJoint {
 
-    private String key = "3c5ee48d0b7d48c5";
-    private String secret = "65ded5353c5ee48d0b7d48c591b8f430";
-    private String url = "192.168.0.214:8080";
+    private String key = "deli";
+    private String secret = "deli.zhqd";
+    private String url = "http://192.168.0.202:8080";
 
     @Autowired
     private RestTemplate restTemplate;
@@ -36,7 +36,8 @@ public class SystemButtJoint {
         httpHeaders.add("App-Timestamp", String.valueOf(time));
         httpHeaders.add("Api-Cmd", cmd);
         HttpEntity<Object> entity = new HttpEntity<>(body, httpHeaders);
-        ResponseEntity<Object> response = restTemplate.exchange(url + path, method, entity, Object.class);
+        String s1 = url + path;
+        ResponseEntity<Object> response = restTemplate.exchange(s1, method, entity, Object.class);
         return response;
     }
 

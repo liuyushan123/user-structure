@@ -18,4 +18,6 @@ public interface EmployService {
     Employ queryOne(Long employId);
 
     Employ update(Long employId, EmployReq employReq);
+
+    Employ queryOne(String jobNumber);
 }

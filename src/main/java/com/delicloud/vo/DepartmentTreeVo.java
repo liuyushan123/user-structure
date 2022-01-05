@@ -27,9 +27,13 @@ public class DepartmentTreeVo extends JsonBase implements TreeNode<Long> {
         return this.parentId;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public boolean isRoot() {
-        return parentId == 0;
+        return parentId == null || parentId == 0;
     }
 
     public void setId(Long id) {

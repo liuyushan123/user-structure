@@ -4,13 +4,15 @@ import com.delicloud.dto.req.DepartmentReq;
 import com.delicloud.entity.Department;
 import com.delicloud.vo.DepartmentVo;
 
+import java.util.List;
+
 /**
  * @author liuyushan
  * Date: 2021/12/30
  */
 public interface DepartmentService {
 
-    void createDepartmentList(Long companyId, Long parentDepartment, Integer count);
+    List<DepartmentVo> createDepartmentList(Long companyId, Long parentDepartment, Integer count);
 
     DepartmentVo query(Long departmentId);
 

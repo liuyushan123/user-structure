@@ -20,9 +20,9 @@ public class EmployVo extends JsonBase {
 
     Integer sex;
 
-    String grade;
+    Grade grade;
 
-    String job;
+    Job job;
 
 
 }

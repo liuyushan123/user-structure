@@ -18,6 +18,7 @@ public class CompanyTreeVo extends JsonBase implements TreeNode<Long> {
     @JsonIgnore
     Boolean root;
     List<CompanyTreeVo> children;
+    List<DepartmentTreeVo> departmentTreeVos;
 
     @Override
     public Long getId() {
@@ -53,6 +54,14 @@ public class CompanyTreeVo extends JsonBase implements TreeNode<Long> {
     @Override
     public void setChildren(List children) {
         this.children = children;
+    }
+
+    public List<DepartmentTreeVo> getDepartmentTreeVos() {
+        return departmentTreeVos;
+    }
+
+    public void setDepartmentTreeVos(List<DepartmentTreeVo> departmentTreeVos) {
+        this.departmentTreeVos = departmentTreeVos;
     }
 
     @Override

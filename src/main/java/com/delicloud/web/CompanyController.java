@@ -4,6 +4,7 @@ import com.delicloud.dto.req.CompanyReq;
 import com.delicloud.entity.Company;
 import com.delicloud.platform.v2.common.lang.bo.RespBase;
 import com.delicloud.service.CompanyService;
+import com.delicloud.vo.CompanyDetailVo;
 import com.delicloud.vo.CompanyTreeVo;
 import com.delicloud.vo.CompanyVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,13 @@ public class CompanyController {
     @GetMapping("queryTree")
     public RespBase<CompanyTreeVo> queryAll() {
         CompanyTreeVo companyVos = companyService.queryTree();
-        System.out.println(companyVos.toString());
         return new RespBase<>(companyVos);
+    }
+
+    @GetMapping("query/{companyId}")
+    public RespBase<CompanyDetailVo> queryAll(@PathVariable Long companyId) {
+        CompanyDetailVo companyDetailVo = companyService.queryDetailCompany(companyId);
+        return new RespBase<>(companyDetailVo);
     }
 
     @PostMapping("create/{companyId}/{count}")

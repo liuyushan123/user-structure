@@ -26,7 +26,7 @@ public class EmployServiceImpl implements EmployService {
     public List<Employ> createUserList(Integer count) {
         List<Employ> employs = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            employs.add(new Employ(UUID.randomUUID().toString(), "员工"+(i+1), i%2, Grade.P1, Job.EMPLOYEE));
+            employs.add(new Employ(UUID.randomUUID().toString().substring(0, 15), "员工" + (i + 1), i % 2, Grade.P1, Job.EMPLOYEE));
         }
         return employRepository.saveAll(employs);
     }
@@ -39,6 +39,12 @@ public class EmployServiceImpl implements EmployService {
     @Override
     public Employ queryOne(Long employId) {
         Employ employ = employRepository.findById(employId).orElseThrow(() -> new RuntimeException("未找到员工"));
+        return employ;
+    }
+
+    @Override
+    public Employ queryOne(String jobNumber) {
+        Employ employ = employRepository.findByJobNumber(jobNumber).orElseThrow(() -> new RuntimeException("未找到员工"));
         return employ;
     }
 

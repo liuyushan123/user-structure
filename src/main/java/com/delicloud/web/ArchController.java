@@ -6,6 +6,7 @@ import com.delicloud.entity.DepartmentEmploy;
 import com.delicloud.entity.Employ;
 import com.delicloud.request.entity.Arch;
 import com.delicloud.request.entity.Node;
+import com.delicloud.request.entity.User;
 import com.delicloud.service.CompanyService;
 import com.delicloud.service.DepartmentEmployService;
 import com.delicloud.service.DepartmentService;
@@ -28,6 +29,7 @@ import java.util.Map;
  */
 @Slf4j
 @RestController
+@RequestMapping("/openApi/v1.0")
 public class ArchController {
 
     @Autowired
@@ -58,7 +60,7 @@ public class ArchController {
     public ResponseEntity<Object> getArch(@PathVariable Long archId,
                                           HttpServletRequest request,
                                           @RequestHeader(value = "Api-Cmd") String apiCmd,
-                                          @RequestBody Map body) {
+                                          @RequestBody(required = false) Object body) {
         companyService.queryOne(archId);
         String method = request.getMethod();
 
@@ -117,23 +119,21 @@ public class ArchController {
     }
 
     @PutMapping("/user/{no}")
-    public ResponseEntity<Object> putUser(@PathVariable Long no,
+    public ResponseEntity<Object> putUser(@PathVariable String no,
                                           @RequestHeader(value = "Api-Cmd") String apiCmd,
-                                          HttpServletRequest request,
-                                          @RequestBody Map body) {
+                                          HttpServletRequest request) {
         Employ employ = employService.queryOne(no);
         List<DepartmentEmploy> departmentEmploys = departmentEmployService.queryUsers(employ.getId());
-//        Assert.isTrue(department.getCompanyId().equals(archId), "部门不在公司下面");
-        //TODO 添加人员未做,mainNode有几个
+        User user = User.createUser(employ, departmentEmploys);
         String method = request.getMethod();
 
         String path = request.getRequestURI();
-        ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path, apiCmd, body);
+        ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path, apiCmd, user);
         return response;
     }
 
     @GetMapping("/user/{no}")
-    public ResponseEntity<Object> getUser(@PathVariable Long no,
+    public ResponseEntity<Object> getUser(@PathVariable String no,
                                           @RequestHeader(value = "Api-Cmd") String apiCmd,
                                           HttpServletRequest request,
                                           @RequestBody Map body) {
@@ -182,8 +182,8 @@ public class ArchController {
 
     @GetMapping("/ass/record")
     public ResponseEntity<Object> assRecord(@RequestHeader(value = "Api-Cmd") String apiCmd,
-                                             HttpServletRequest request,
-                                             @RequestBody Map body) {
+                                            HttpServletRequest request,
+                                            @RequestBody Map body) {
         String method = request.getMethod();
         String queryString = request.getQueryString();
         String path = request.getRequestURI();

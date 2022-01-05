@@ -39,14 +39,15 @@ public class DepartmentServiceImpl implements DepartmentService {
     private EmployRepository employRepository;
 
     @Override
-    public void createDepartmentList(Long companyId, Long parentDepartment, Integer count) {
+    public List<DepartmentVo> createDepartmentList(Long companyId, Long parentDepartment, Integer count) {
         Department department = departmentRepository.findById(parentDepartment).orElseThrow(() -> new RuntimeException("未找到部门"));
         Company company = companyRepository.findById(companyId).orElseThrow(() -> new RuntimeException("未找到公司"));
         List<Department> departments = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             departments.add(new Department(company.getId(), department.getId(), "部门" + (i + 1)));
         }
-        departmentRepository.saveAll(departments);
+        List<DepartmentVo> departmentVos = PropertyCopyUtil.copyCollectionProperties(departmentRepository.saveAll(departments), DepartmentVo.class);
+        return departmentVos;
     }
 
     @Override
