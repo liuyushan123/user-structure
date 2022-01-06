@@ -3,6 +3,7 @@ package com.delicloud.util;
 import com.delicloud.platform.v2.common.lang.bo.page.RespPage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -10,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Map;
 
 /**
  * @author liuyushan
@@ -49,7 +52,7 @@ public final static String checkinAcsQuery  = "checkin_acs_query";
         return response;
     }
 
-    public ResponseEntity<RespPage> sendMessagePage(HttpMethod method, String path, String cmd, Object body) {
+    public ResponseEntity<RespPage<Map<String, Object>>> sendMessagePage(HttpMethod method, String path, String cmd, Object body) {
         Long time = System.currentTimeMillis();
         String s = path + time + key + secret;
         log.info(s);
@@ -61,9 +64,26 @@ public final static String checkinAcsQuery  = "checkin_acs_query";
         httpHeaders.add("Api-Cmd", cmd);
         HttpEntity<Object> entity = new HttpEntity<>(body, httpHeaders);
         String s1 = url + path;
-        ResponseEntity<RespPage> response = restTemplate.exchange(s1, method, entity, RespPage.class);
+        ResponseEntity<RespPage<Map<String, Object>>> response = restTemplate.exchange(s1, method, entity, new ParameterizedTypeReference<RespPage<Map<String, Object>>>() {
+        });
         return response;
     }
 
+
+    public <T> ResponseEntity<T> sendMessagePageaa(HttpMethod method, String path, String cmd, Object body, ParameterizedTypeReference<T> typeReference) {
+        Long time = System.currentTimeMillis();
+        String s = path + time + key + secret;
+        log.info(s);
+        String md5 = DigestUtils.md5DigestAsHex(s.getBytes());
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("App-Key", key);
+        httpHeaders.add("App-Sig", md5);
+        httpHeaders.add("App-Timestamp", String.valueOf(time));
+        httpHeaders.add("Api-Cmd", cmd);
+        HttpEntity<Object> entity = new HttpEntity<>(body, httpHeaders);
+        String s1 = url + path;
+        ResponseEntity<T> response = restTemplate.exchange(s1, method, entity, typeReference);
+        return response;
+    }
 
 }

@@ -16,14 +16,12 @@ import com.delicloud.request.entity.User;
 import com.delicloud.util.SystemButtJoint;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author liuyushan
@@ -143,18 +141,20 @@ public class BatchTestController {
         return RespBase.OK_RESP_BASE;
     }
 
-    public void equalsUserCount(){
-        Integer page = 1;
-        List list = new ArrayList();
+    private List<Map<String,Object>> queryAllUser(){
+        int page = 1;
+        List<Map<String, Object>> list = new ArrayList<>();
         while (true){
-            ResponseEntity<RespPage> response = systemButtJoint.sendMessagePage(HttpMethod.GET, String.format(queryUser, page, 1000), SystemButtJoint.userQuery, null);
-            RespPage body = response.getBody();
+            ResponseEntity<RespPage<Map<String, Object>>> response = systemButtJoint.sendMessagePage(HttpMethod.GET, String.format(queryUser, page, 1000), SystemButtJoint.userQuery, null, new ParameterizedTypeReference<RespPage<Map<String, Object>>>() {
+            });
+            RespPage<Map<String, Object>> body = response.getBody();
             list.addAll(body.getRows());
-            if (body.getTotalPage() >= page){
+            if (body.getTotalPage() <= page){
                 break;
             }
-
+            page++;
         }
+        return list;
     }
 
 
