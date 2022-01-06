@@ -26,7 +26,10 @@ public class EmployServiceImpl implements EmployService {
     public List<Employ> createUserList(Integer count) {
         List<Employ> employs = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            employs.add(new Employ(UUID.randomUUID().toString().substring(0, 15), "员工" + (i + 1), i % 2, Grade.P1, Job.EMPLOYEE));
+            List<String> hobbies = new ArrayList<>();
+            hobbies.add("打球");
+            hobbies.add("打游戏");
+            employs.add(new Employ(UUID.randomUUID().toString().substring(0, 15), "员工" + (i + 1), i % 2, "12345678912",  Grade.P1, Job.EMPLOYEE,hobbies));
         }
         return employRepository.saveAll(employs);
     }

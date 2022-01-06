@@ -5,6 +5,8 @@ import com.delicloud.commonEnum.Job;
 import com.delicloud.platform.v2.common.lang.bo.JsonBase;
 import lombok.Data;
 
+import java.util.List;
+
 /**
  * @author lys
  * 2022/1/4
@@ -17,6 +19,10 @@ public class EmployVo extends JsonBase {
     String jobNumber;
 
     String name;
+
+    String phoneNumber;
+
+    List<String> hobbies;
 
     Integer sex;
 

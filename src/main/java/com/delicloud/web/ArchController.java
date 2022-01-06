@@ -72,7 +72,7 @@ public class ArchController {
     @GetMapping("/arch/all")
     public ResponseEntity<Object> getArchAll(HttpServletRequest request,
                                              @RequestHeader(value = "Api-Cmd") String apiCmd,
-                                             @RequestBody Map body) {
+                                             @RequestBody(required = false) Object body) {
         String method = request.getMethod();
 
         String path = request.getRequestURI();
@@ -98,7 +98,7 @@ public class ArchController {
     public ResponseEntity<Object> deleteArch(@PathVariable Long archId,
                                              @RequestHeader(value = "Api-Cmd") String apiCmd,
                                              HttpServletRequest request,
-                                             @RequestBody Map body) {
+                                             @RequestBody(required = false) Object body) {
         String method = request.getMethod();
 
         String path = request.getRequestURI();
@@ -111,7 +111,19 @@ public class ArchController {
                                              @PathVariable Long nodeId,
                                              @RequestHeader(value = "Api-Cmd") String apiCmd,
                                              HttpServletRequest request,
-                                             @RequestBody Map body) {
+                                             @RequestBody(required = false) Object body) {
+        String method = request.getMethod();
+        String path = request.getRequestURI();
+        ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path, apiCmd, body);
+        return response;
+    }
+
+    @GetMapping("/arch/{archId}/node/{nodeId}")
+    public ResponseEntity<Object> queryNode(@PathVariable Long archId,
+                                             @PathVariable Long nodeId,
+                                             @RequestHeader(value = "Api-Cmd") String apiCmd,
+                                             HttpServletRequest request,
+                                             @RequestBody(required = false) Object body) {
         String method = request.getMethod();
         String path = request.getRequestURI();
         ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path, apiCmd, body);
@@ -136,7 +148,7 @@ public class ArchController {
     public ResponseEntity<Object> getUser(@PathVariable String no,
                                           @RequestHeader(value = "Api-Cmd") String apiCmd,
                                           HttpServletRequest request,
-                                          @RequestBody Map body) {
+                                          @RequestBody(required = false) Object body) {
         employService.queryOne(no);
         String method = request.getMethod();
 
@@ -160,7 +172,7 @@ public class ArchController {
     public ResponseEntity<Object> deleteUser(@PathVariable Long no,
                                              @RequestHeader(value = "Api-Cmd") String apiCmd,
                                              HttpServletRequest request,
-                                             @RequestBody Map body) {
+                                             @RequestBody(required = false) Object body) {
         String method = request.getMethod();
         String path = request.getRequestURI();
         ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path, apiCmd, body);
@@ -172,7 +184,7 @@ public class ArchController {
                                              @PathVariable String type,
                                              @RequestHeader(value = "Api-Cmd") String apiCmd,
                                              HttpServletRequest request,
-                                             @RequestBody Map body) {
+                                             @RequestBody(required = false) Object body) {
         employService.queryOne(no);
         String method = request.getMethod();
         String path = request.getRequestURI();
@@ -183,7 +195,7 @@ public class ArchController {
     @GetMapping("/ass/record")
     public ResponseEntity<Object> assRecord(@RequestHeader(value = "Api-Cmd") String apiCmd,
                                             HttpServletRequest request,
-                                            @RequestBody Map body) {
+                                            @RequestBody(required = false) Object body) {
         String method = request.getMethod();
         String queryString = request.getQueryString();
         String path = request.getRequestURI();
@@ -194,7 +206,7 @@ public class ArchController {
     @GetMapping("/acs/record")
     public ResponseEntity<Object> acsRecord(@RequestHeader(value = "Api-Cmd") String apiCmd,
                                             HttpServletRequest request,
-                                            @RequestBody Map body) {
+                                            @RequestBody(required = false) Object body) {
         String method = request.getMethod();
         String queryString = request.getQueryString();
         String path = request.getRequestURI();
