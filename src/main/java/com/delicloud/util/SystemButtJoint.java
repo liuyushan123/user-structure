@@ -32,7 +32,7 @@ public final static String checkinAcsQuery  = "checkin_acs_query";
 
     private String key = "deli";
     private String secret = "deli.zhqd";
-    private String url = "http://192.168.0.202:8080";
+    private String url = "http://192.168.0.115:8080";
 
     @Autowired
     private RestTemplate restTemplate;

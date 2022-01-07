@@ -169,13 +169,13 @@ public class BatchTestController {
         int page = 1;
         List<Map<String, Object>> list = new ArrayList<>();
         while (true){
-            ResponseEntity<RespPage<Map<String, Object>>> response = systemButtJoint.sendMessage(HttpMethod.GET, String.format(queryUser, page, 1000), SystemButtJoint.userQuery , null, new ParameterizedTypeReference<RespPage<Map<String, Object>>>() {
+            ResponseEntity<RespBase<RespPage<Map<String, Object>>>> response = systemButtJoint.sendMessage(HttpMethod.GET, String.format(queryUser, page, 1000), SystemButtJoint.userQuery , null, new ParameterizedTypeReference<RespBase<RespPage<Map<String, Object>>>>() {
             });
-            RespPage<Map<String, Object>> body = response.getBody();
-            if (body.getTotalPage() <= page){
+            RespBase<RespPage<Map<String, Object>>> body = response.getBody();
+            if (body.getData().getTotalPage() <= page){
                 break;
             }
-            list.addAll(body.getRows());
+            list.addAll(body.getData().getRows());
             page++;
         }
         return list;
