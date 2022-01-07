@@ -1,6 +1,7 @@
 package com.delicloud.util;
 
 import com.delicloud.platform.v2.common.lang.bo.page.RespPage;
+import com.delicloud.platform.v2.common.lang.util.JacksonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -46,13 +47,15 @@ public final static String checkinAcsQuery  = "checkin_acs_query";
         httpHeaders.add("App-Sig", md5);
         httpHeaders.add("App-Timestamp", String.valueOf(time));
         httpHeaders.add("Api-Cmd", cmd);
+        log.info(JacksonUtil.bean2Json(body));
         HttpEntity<Object> entity = new HttpEntity<>(body, httpHeaders);
         String s1 = url + path;
         ResponseEntity<Object> response = restTemplate.exchange(s1, method, entity, Object.class);
+        log.info(response.getBody().toString());
         return response;
     }
 
-    public ResponseEntity<RespPage<Map<String, Object>>> sendMessagePage(HttpMethod method, String path, String cmd, Object body) {
+    public <T> ResponseEntity<T> sendMessage(HttpMethod method, String path, String cmd, Object body, Class<T> tClass) {
         Long time = System.currentTimeMillis();
         String s = path + time + key + secret;
         log.info(s);
@@ -64,13 +67,13 @@ public final static String checkinAcsQuery  = "checkin_acs_query";
         httpHeaders.add("Api-Cmd", cmd);
         HttpEntity<Object> entity = new HttpEntity<>(body, httpHeaders);
         String s1 = url + path;
-        ResponseEntity<RespPage<Map<String, Object>>> response = restTemplate.exchange(s1, method, entity, new ParameterizedTypeReference<RespPage<Map<String, Object>>>() {
-        });
+        log.info(JacksonUtil.bean2Json(body));
+        ResponseEntity<T> response = restTemplate.exchange(s1, method, entity, tClass);
+        log.info(response.getBody().toString());
         return response;
     }
 
-
-    public <T> ResponseEntity<T> sendMessagePageaa(HttpMethod method, String path, String cmd, Object body, ParameterizedTypeReference<T> typeReference) {
+    public <T> ResponseEntity<T> sendMessage(HttpMethod method, String path, String cmd, Object body, ParameterizedTypeReference<T> typeReference) {
         Long time = System.currentTimeMillis();
         String s = path + time + key + secret;
         log.info(s);
@@ -82,7 +85,9 @@ public final static String checkinAcsQuery  = "checkin_acs_query";
         httpHeaders.add("Api-Cmd", cmd);
         HttpEntity<Object> entity = new HttpEntity<>(body, httpHeaders);
         String s1 = url + path;
+        log.info(JacksonUtil.bean2Json(body));
         ResponseEntity<T> response = restTemplate.exchange(s1, method, entity, typeReference);
+        log.info(response.getBody().toString());
         return response;
     }
 

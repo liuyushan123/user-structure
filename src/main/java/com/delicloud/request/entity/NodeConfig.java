@@ -1,20 +1,22 @@
 package com.delicloud.request.entity;
 
 import com.delicloud.platform.v2.common.lang.bo.JsonBase;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * @author lys
  * 2022/1/4
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Builder
+@Setter
+@Getter
 public class NodeConfig extends JsonBase {
 
     String nodeId;
     Boolean isManager;
+    String archId;
+    String nodeIdPath;
+    String nodeName;
+    String nodeNamePath;
 
 }
