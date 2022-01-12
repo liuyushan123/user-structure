@@ -164,12 +164,12 @@ public class ArchController {
         String method = request.getMethod();
         String queryString = request.getQueryString();
         String path = request.getRequestURI();
-        ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path + "?" + queryString, apiCmd, body);
+        ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path,queryString, apiCmd, body);
         return response;
     }
 
     @DeleteMapping("/user/{no}")
-    public ResponseEntity<Object> deleteUser(@PathVariable Long no,
+    public ResponseEntity<Object> deleteUser(@PathVariable String no,
                                              @RequestHeader(value = "Api-Cmd") String apiCmd,
                                              HttpServletRequest request,
                                              @RequestBody(required = false) Object body) {
@@ -180,7 +180,7 @@ public class ArchController {
     }
 
     @PutMapping("/user/{no}/feature/{type}")
-    public ResponseEntity<Object> deleteUser(@PathVariable Long no,
+    public ResponseEntity<Object> deleteUser(@PathVariable String no,
                                              @PathVariable String type,
                                              @RequestHeader(value = "Api-Cmd") String apiCmd,
                                              HttpServletRequest request,
@@ -199,7 +199,7 @@ public class ArchController {
         String method = request.getMethod();
         String queryString = request.getQueryString();
         String path = request.getRequestURI();
-        ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path + "?" + queryString, apiCmd, body);
+        ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path , queryString, apiCmd, body);
         return response;
     }
 
@@ -210,7 +210,7 @@ public class ArchController {
         String method = request.getMethod();
         String queryString = request.getQueryString();
         String path = request.getRequestURI();
-        ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path + "?" + queryString, apiCmd, body);
+        ResponseEntity<Object> response = systemButtJoint.sendMessage(HttpMethod.valueOf(method), path , queryString, apiCmd, body);
         return response;
     }
 }
